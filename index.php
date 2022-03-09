@@ -5,6 +5,7 @@ $is_auth = rand(0, 1);
 $user_name = 'Alex'; // укажите здесь ваше имя
 ?>
 <<?php
+require_once("helpers.php");
 require_once("function.php");
 require_once("data.php");
 
