@@ -28,8 +28,12 @@
                             <span class="lot__amount">цена</span>
                             <span class="lot__cost"><?= cena_bjut($value[2]);?></span>
                         </div>
-                        <div class="lot__timer timer">
-                            12:23
+                        <?php $res = get_dt_range ($value[4]); ?>
+                        <div class="lot__timer timer <?php if ($res[0]<1) print (" timer--finishing"); ?>" >
+                            <?php 
+                            //print($value[4]);
+                            print ($res[0].':'.$res[1]);
+                            ?>
                         </div>
                     </div>
                 </div>
