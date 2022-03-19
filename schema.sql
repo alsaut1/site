@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS;
+DROP DATABASE IF EXISTS yeticave;
 CREATE DATABASE yeticave
 DEFAULT CHARACTER SET utf8
 DEFAULT COLLATE utf8_general_ci;
@@ -23,7 +23,7 @@ winner_id SMALLINT NOT NULL,
 category_id SMALLINT NOT NULL,
 FOREIGN KEY (monteiner_id) REFERENCES users(id),
 FOREIGN KEY (winner_id) REFERENCES users(id),
-FOREIGN KEY (category_id) REFERENCES category(id),
+FOREIGN KEY (category_id) REFERENCES category(id)
 );
 
 CREATE TABLE bit (
@@ -33,7 +33,7 @@ bid MEDIUMINT NOT NULL,
 user_id SMALLINT NOT NULL,
 lot_id SMALLINT NOT NULL,
 FOREIGN KEY (user_id) REFERENCES users(id),
-FOREIGN KEY (lot_id) REFERENCES users(id),
+FOREIGN KEY (lot_id) REFERENCES users(id)
 );
 
 CREATE TABLE users (
