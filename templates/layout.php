@@ -60,7 +60,7 @@ $user_name = 'Alex'; // укажите здесь ваше имя
         <ul class="nav__list container">
             <?php foreach($categories as $key =>$val): ?>
             <li class="nav__item">
-              <a href="pages/all-lots.html"><?= $val; ?></a>
+              <a href="pages/all-lots.html"><?= $val['name']; ?></a>
             </li>
             <?php endforeach; ?>
         </ul>

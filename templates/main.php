@@ -5,7 +5,7 @@
         <ul class="promo__list">
             <?php for ($i = 0; $i < count($categories); $i++): ?>
             <li class="promo__item promo__item--boards">
-               <a class="promo__link" href="pages/all-lots.html"><?=($categories[$i]); ?></a>
+               <a class="promo__link" href="pages/all-lots.html"><?=($categories[$i]['name']); ?></a>
             </li>
             <?php endfor;?>
         </ul>
