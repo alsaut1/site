@@ -11,6 +11,10 @@
 <?php
 require_once("function.php");
 get_dt_range ("2022-03-23");
+$tab = filter_input(INPUT_GET, 'tab');
+$sort = filter_input(INPUT_GET, 'sort');
+print ("активная вкладка".$tab);
+print ("Сортировка ".$sort);
 
 
 
