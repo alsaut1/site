@@ -21,13 +21,17 @@
         </div>
         <div class="lot-item__right">
           <div class="lot-item__state">
-            <div class="lot-item__timer timer">
-              10:54
+              <?php $res = get_dt_range ($goods[0]['enddate']); ?>
+              <div class="lot__timer timer <?php if ($res[0]<1) print (" timer--finishing"); ?>" >
+              <?php
+
+              print ($res[0].':'.$res[1]);
+              ?>
             </div>
             <div class="lot-item__cost-state">
               <div class="lot-item__rate">
                 <span class="lot-item__amount">Текущая цена</span>
-                <span class="lot-item__cost">10 999</span>
+                <span class="lot-item__cost"><?= cena_bjut($goods[0]['startprice']);?></span>
               </div>
               <div class="lot-item__min-cost">
                 Мин. ставка <span>12 000 р</span>
