@@ -39,3 +39,28 @@ $res[] = $hours;
 $res[] = $minut;
 return $res;
 };
+
+/**
+*
+*    Проверяем являеться ли аргумент числом больше 0
+*    @param  int  в виде числа
+*    @return string текстовое сообщение об ошибке
+*/
+function itisint ($argum = null) {
+    if (!(is_numeric($argum) && ($argum > 0))) {
+      return "Должно быть указано число больше нуля";
+    };
+}
+
+/**
+*   Проверяет валидность категории, проверяя присутствие
+*  категории в массиве категорий
+*  @param string (название категории), array (массив категорий)
+*  @return string текстовое сообщение об ошибке
+*/
+
+function validateCategory ($nameCategory, $listCateg){
+    if (!in_array($nameCategory, $listCateg)){
+      return "Указана несуществующая категория";
+    };
+  }
