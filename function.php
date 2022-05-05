@@ -49,8 +49,9 @@ return $res;
 function itisint ($argum = null) {
     if (!(is_numeric($argum) && ($argum > 0))) {
       return "Должно быть указано число больше нуля";
+    }
     };
-}
+
 
 /**
 *   Проверяет валидность категории, проверяя присутствие
@@ -62,5 +63,24 @@ function itisint ($argum = null) {
 function validateCategory ($nameCategory, $listCateg){
     if (!in_array($nameCategory, $listCateg)){
       return "Указана несуществующая категория";
+    }
     };
-  }
+ /**
+*   Проверяет что дата окончания торгов не меньше одного дня
+* @param string $date дата которую ввел пользователь в форму
+* @return string Текст сообщения об ошибке
+*/
+  function validate_date ($date) {
+      if (is_date_valid($date)) {
+          $now = date_create("now");
+          $d = date_create($date);
+          $diff = date_diff($d, $now);
+          $interval = date_interval_format($diff, "%d");
+
+          if ($interval < 1) {
+              return "Дата должна быть больше текущей не менее чем на один день";
+          };
+      } else {
+          return "Содержимое поля «дата завершения» должно быть датой в формате «ГГГГ-ММ-ДД»";
+      }
+  };

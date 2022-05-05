@@ -17,18 +17,19 @@ require_once("function.php");
 require_once("data.php");
 require_once("init.php");
 
-if (isset($_FILES['avatar'])&&($_FILES['avatar']['type']== 'image/gif' || $_FILES['avatar']['type']== 'image/jpeg' )){
-$fileName = ($_FILES['avatar']['name']);
-$filePach = __DIR__.'/uploads/';
-$fileUrl = '/uploads/'.$fileName;
-move_uploaded_file($_FILES['avatar']['tmp_name'], $filePach . $fileName);
+$sql = 'INSERT INTO lot (title, category_id, description, startprice, bidstep, enddate, monteiner_id ) VALUE (?, ?, ?, ?, ?, ?, ?)';
+$title = "Коньки";
+$categ = 3;
+$discr = "Отличные коньки век не сносить";
+$startprice = 1000;
+$bidstep = 500;
+$enddate = "2022-04-12";
+$monteiner = 2;
 
-print ("<a href = $fileUrl > $fileName </a>");
-print ($_FILES['avatar']['type']);
-} else {
-print ("Не загрузил или загрузил говно-с");
+$stmt = mysqli_prepare($con, $sql);
+mysqli_stmt_bind_param($stmt, 'sisiisi', $title, $categ, $discr, $startprice, $bidstep, $enddate, $monteiner );
+mysqli_stmt_execute($stmt);
 
-}
 
 
 ?>
