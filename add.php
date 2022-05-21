@@ -5,12 +5,17 @@ require_once("data.php");
 require_once("init.php");
 $errors = [];
 
-$category = "SELECT  code, name FROM category";
+$category = "SELECT  code, name, id FROM category";
 $result_cat = mysqli_query($con, $category);
 $categories = mysqli_fetch_all($result_cat, MYSQLI_ASSOC);
 foreach ($categories as $key => $value) {
 $categoiesVal[] = ($value["name"]);
+$categoiesId[] = ($value["id"]);
 }
+
+$page_content = include_template("addtem.php",[
+"categories" => $categories,
+]);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 $required = ["lot-name", "category" ,"message", "lot-rate", "lot-step", "lot-date" ];
@@ -18,11 +23,11 @@ $newlot = filter_input_array(INPUT_POST, ["lot-name" => FILTER_DEFAULT, "categor
 "message" => FILTER_DEFAULT, "lot-rate" => FILTER_DEFAULT, "lot-step"  => FILTER_DEFAULT,
 "lot-date" => FILTER_DEFAULT ], add_empty:true );
 
- var_dump ($newlot);
+ //var_dump ($newlot);
 
 $rules = [
-"category" => function ($value) use ($categoiesVal){
-return validateCategory($value, $categoiesVal);
+"category" => function ($value) use ($categoiesId){
+return validateCategory($value, $categoiesId);
 },
 "lot-rate" => function ($value) {
   return itisint($value);
@@ -59,11 +64,12 @@ $errors = array_filter($errors);
 $errors["lot_img"] = "Вы не загрузили изображение,  или загрузили в недопустимом формате.";
   }
 
-   // var_dump($errors);
-   // print('/uploads/'.$fileName);
+//var_dump($errors);
+
 
 
   if (count($errors)){
+
     $page_content = include_template("addtem.php",[
     "categories" => $categories,
     "lot" => $newlot,
@@ -73,8 +79,10 @@ $errors["lot_img"] = "Вы не загрузили изображение,  ил
     $sql = 'INSERT INTO lot (title, category_id, img, description, startprice, bidstep, enddate, monteiner_id ) VALUE (?, ?, ?, ?, ?, ?, ?, ?)';
     $stmt = mysqli_prepare($con, $sql);
     $test = "2";
-    mysqli_stmt_bind_param($stmt, 'sisssssi', $newlot["lot-name"], $test , $lotimg, $newlot["message"], $newlot["lot-rate"], $newlot["lot-step"], $newlot["lot-date"], $test  );
+    mysqli_stmt_bind_param($stmt, 'sisssssi', $newlot["lot-name"], $newlot["category"], $lotimg, $newlot["message"], $newlot["lot-rate"], $newlot["lot-step"], $newlot["lot-date"], $test  );
     mysqli_stmt_execute($stmt);
+    $lotid = mysqli_insert_id($con);
+    header("Location: /lot.php?lotid=". $lotid);
   }
 
 
@@ -85,9 +93,7 @@ $errors["lot_img"] = "Вы не загрузили изображение,  ил
 
 
 
-$page_content = include_template("addtem.php",[
-"categories" => $categories,
-]);
+
 
 $layout_content = include_template("layout.php", [
 "content" => $page_content,

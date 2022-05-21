@@ -10,25 +10,22 @@
   <label>Ваш аватар: <input type="file" name="avatar"></label>
   <input type="submit" name="send" value="Отправить">
 </form>
-Говно
+
 <?php
 require_once("helpers.php");
 require_once("function.php");
 require_once("data.php");
 require_once("init.php");
 
-$sql = 'INSERT INTO lot (title, category_id, description, startprice, bidstep, enddate, monteiner_id ) VALUE (?, ?, ?, ?, ?, ?, ?)';
-$title = "Коньки";
-$categ = 3;
-$discr = "Отличные коньки век не сносить";
-$startprice = 1000;
-$bidstep = 500;
-$enddate = "2022-04-12";
-$monteiner = 2;
+$category = "SELECT  code, name, id FROM category";
+$result_cat = mysqli_query($con, $category);
+$categories = mysqli_fetch_all($result_cat, MYSQLI_ASSOC);
+foreach ($categories as $key => $value) {
+$categoiesVal[] = ($value["name"]);
+$categoiesId[] = ($value["id"]);
+}
 
-$stmt = mysqli_prepare($con, $sql);
-mysqli_stmt_bind_param($stmt, 'sisiisi', $title, $categ, $discr, $startprice, $bidstep, $enddate, $monteiner );
-mysqli_stmt_execute($stmt);
+var_dump($categoiesId);
 
 
 
