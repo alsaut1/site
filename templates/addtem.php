@@ -42,12 +42,14 @@
         <textarea id="message" name="message" placeholder="Напишите описание лота"><?=$content;?>"</textarea>
         <span class="form__error">Напишите описание лота</span>
       </div>
-      <?php $classname = isset($errors["lot-img"]) ? "form__item--invalid" :""; ?>
+      <?php $classname = isset($errors["lot_img"]) ? "form__item--invalid" :""; ?>
+      <?php $errmesg = isset($errors["lot_img"]) ? $errors["lot_img"] :""; ?>
       <div class="form__item form__item--file <?= $classname; ?>">
         <label>Изображение <sup>*</sup></label>
         <div class="form__input-file">
           <input class="visually-hidden" type="file" id="lot-img" value="" name= "lot_img">
           <label for="lot-img">Добавить</label>
+          <span class= "form__error"> <?=$errmesg;?> </span>
         </div>
       </div>
 

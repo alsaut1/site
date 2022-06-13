@@ -14,19 +14,19 @@
 <?php
 require_once("helpers.php");
 require_once("function.php");
-require_once("data.php");
 require_once("init.php");
 
-$category = "SELECT  code, name, id FROM category";
-$result_cat = mysqli_query($con, $category);
-$categories = mysqli_fetch_all($result_cat, MYSQLI_ASSOC);
-foreach ($categories as $key => $value) {
-$categoiesVal[] = ($value["name"]);
-$categoiesId[] = ($value["id"]);
+$name = "cookies_1";
+$value = 12;
+$expire = "Mon, 25-Jan-2027 10:00:00 GMT";
+$path = "/";
+
+setcookie($name, $value, (time() - 3600), $path);
+
+if (isset($_COOKIE['cookies_1'])){
+
+print ($_COOKIE['cookies_1']);
 }
-
-var_dump($categoiesId);
-
 
 
 ?>
