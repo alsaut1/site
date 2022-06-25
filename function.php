@@ -2,6 +2,38 @@
 <?php
 
 /**
+*  Функция проыкруи e-imap_mailboxmsginfo
+* @param принимает
+* @return string $email текстовое сообщение об ошибке
+*/
+function checkemail($email){
+if (!(filter_var($email, FILTER_VALIDATE_EMAIL))){
+  return "Должен быть указан коректный e-mail";
+}
+
+};
+
+
+/**
+*  Проверяем что содержимое строка и укладываеться в диапазон
+* @param string $value содержимое поля
+* @param int $min минимальная длинна
+* @param int $max  максимальная длинна
+* @return string сообщение об ошибке
+*/
+
+function validate_length($value, $min, $max){
+if  (is_string($value)) {
+$len = strlen($value);
+if ($len < $min or $len > $max) {
+  return "Количество символов должно быть от $min до $max";
+}
+
+}
+
+};
+
+/**
 *  Форматируем цену
 *   @param number $price цена изгначальная test
 *  @return string отформатированная цена
@@ -84,3 +116,55 @@ function validateCategory ($nameCategory, $listCateg){
           return "Содержимое поля «дата завершения» должно быть датой в формате «ГГГГ-ММ-ДД»";
       }
   };
+
+
+/**
+* Создает подготовленное выражение на основе готового SQL запроса и переданных данных
+ *
+ * @param $link mysqli Ресурс соединения
+ * @param $sql string SQL запрос с плейсхолдерами вместо значений
+ * @param array $data Данные для вставки на место плейсхолдеров
+ *
+ * @return stmt Подготовленное выражение
+ */
+
+  function db_get_prepare_stmt_version($link, $sql, $data = []) {
+      $stmt = mysqli_prepare($link, $sql);
+
+      if ($stmt === false) {
+          $errorMsg = 'Не удалось инициализировать подготовленное выражение: ' . mysqli_error($link);
+          die($errorMsg);
+      }
+
+      if ($data) {
+          $types = '';
+          $stmt_data = [];
+
+          foreach ($data as $key => $value) {
+              $type = 's';
+
+              if (is_int($value)) {
+                  $type = 'i';
+              }
+              else if (is_double($value)) {
+                  $type = 'd';
+              }
+
+              if ($type) {
+                  $types .= $type;
+                  $stmt_data[] = $value;
+              }
+          }
+
+          $values = array_merge([$stmt, $types], $stmt_data);
+          var_dump($Values);
+          mysqli_stmt_bind_param(...$values);
+
+          if (mysqli_errno($link) > 0) {
+              $errorMsg = 'Не удалось связать подготовленное выражение с параметрами: ' . mysqli_error($link);
+              die($errorMsg);
+          }
+      }
+
+      return $stmt;
+  }
