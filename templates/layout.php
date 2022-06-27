@@ -40,10 +40,10 @@ $user_name = 'Alex'; // укажите здесь ваше имя
 <?php else: ?>
 <ul class="user-menu__list">
   <li class="user-menu__item">
-    <a href="#">Регистрация</a>
+    <a href="sign-up.php">Регистрация</a>
   </li>
   <li class="user-menu__item">
-    <a href="#">Вход</a>
+    <a href="login.php">Вход</a>
   </li>
 </ul>
 <?php  endif; ?>

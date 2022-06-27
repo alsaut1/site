@@ -13,7 +13,6 @@ require_once("helpers.php");
 require_once("function.php");
 require_once("init.php");
 
-$sql = "INSEPT INTO users (	creatuser, email, name, password, contact) VALUES (NOW(), ?, ?, ?, ?);";
-$stmt = db_get_prepare_stmt_version($con, $sql, $newuser);
-print ($stmt);
+
+print (validate_length("uyfgu", 6, 8));
 ?>

@@ -22,25 +22,29 @@
         <input id="email" type="text" name="email" placeholder="Введите e-mail" value="<?= $email ;?>">
         <span class="form__error"><?= $errors["email"]; ?></span>
       </div>
-      <div class="form__item">
+      <?php $classname = isset($errors['password'])? "form__item--invalid ": ""; ?>
+      <div class="form__item  <?=$classname ?>">
         <label for="password">Пароль <sup>*</sup></label>
         <?php $passw = isset ($user['password']) ? $user['password'] : ""; ?>
         <input id="password" type="text" name="password" placeholder="Введите пароль" value="<?= $passw ;?>"">
         <span class="form__error"><?= $errors["password"]; ?></span>
       </div>
-      <div class="form__item">
+      <?php $classname = isset($errors['name'])? "form__item--invalid ": ""; ?>
+      <div class="form__item <?=$classname ?>">
         <label for="name">Имя <sup>*</sup></label>
           <?php $username = isset ($user['name']) ? $user['name'] : ""; ?>
         <input id="name" type="text" name="name" placeholder="Введите имя" value="<?= $username ;?>">
         <span class="form__error"><?= $errors["name"]; ?></span>
       </div>
-      <div class="form__item">
+      <?php $classname = isset($errors['message'])? "form__item--invalid ": ""; ?>
+      <div class="form__item <?=$classname ?>">
         <label for="message">Контактные данные <sup>*</sup></label>
         <?php $message = isset ($user['message']) ? $user['message'] : ''; ?>
         <textarea id="message" name="message" placeholder="Напишите как с вами связаться"> <?= $message;?></textarea>
         <span class="form__error"><?= $errors["message"]; ?></span>
       </div>
-      <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
+      <?php $messages = isset($errors)? "Пожалуста исправьте ошибки в форме" : ""; ?>
+      <span class="form__error form__error--bottom"><?=$messages ?></span>
       <button type="submit" class="button">Зарегистрироваться</button>
       <a class="text-link" href="#">Уже есть аккаунт</a>
     </form>

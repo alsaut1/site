@@ -22,16 +22,17 @@ $rules = [
 "email" => function ($value) {
 return checkemail($value);
 },
-"pass" => function ($value) {
+"password" => function ($value) {
   return validate_length($value, 6, 8);
 },
-"contact" => function ($value) {
+"message" => function ($value) {
    return validate_length($value, 12, 1000);
 
 }
 ];
 
 foreach ($newuser  as $key => $value) {
+
 if (isset($rules[$key])){
   $rule = $rules[$key];
   $errors[$key] = $rule($value);
@@ -47,7 +48,7 @@ $errors = array_filter($errors);
 
 
   if (count($errors)){
-var_dump($errors);
+
     $page_content = include_template("signup.php",[
     "categories" => $categories,
     "user" => $newuser,
@@ -70,7 +71,7 @@ var_dump($errors);
 $page_content = include_template ("signup.php", [
 "categories" => $categories,
 "user" => $newuser,
-"error" => $errors
+"errors" => $errors
 ]);
 } else {
   $sql = "INSERT INTO users (	creatuser, email, name, password, contact) VALUES (NOW(), ?, ?, ?, ?);";
