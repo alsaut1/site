@@ -11,10 +11,41 @@ $page_content = include_template("login.php",[
 "categories" => $categories
 ]);
 
-// if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-// $required = ["email", "pass", "name", "contact" ];
-// $newuser = filter_input_array(INPUT_POST, ["email" => FILTER_DEFAULT, "password" => FILTER_DEFAULT ,
-// "message" => FILTER_DEFAULT, "name" => FILTER_DEFAULT], add_empty:true );
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+$required = ["email", "password" ];
+$autuser = filter_input_array(INPUT_POST, [ "email" => FILTER_DEFAULT, "password" => FILTER_DEFAULT ],  add_empty:true );
+$errors = [];
+
+foreach ($autuser as $key => $value) {
+  if (in_array($key, $required ) && empty($value)){
+  $errors [$key] = "Поле $key нужно бы заполнить";
+  }
+}
+
+
+
+if (count($errors)){
+$page_content = include_template ("login.php", [
+"categories" => $categories,
+"autuser" => $autuser,
+"errors" => $errors
+]);}
+
+$usercheck = "SELECT password FROM users WHERE email = '$autuser[email]' ";
+$result = mysqli_query($con, $usercheck);
+$row = mysqli_fetch_assoc($result);
+if ($row['password']) {
+var_dump($autuser['password']);
+var_dump( $row['password']);
+if (password_verify ($autuser['password'], $row['password'])) {
+    print "ok";
+  } else {  print "false1";}
+
+}  else {  print "false2";}
+
+
+}
+
 
 $layout_content = include_template("layout.php", [
 "content" => $page_content,

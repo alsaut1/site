@@ -74,7 +74,7 @@ $page_content = include_template ("signup.php", [
 "errors" => $errors
 ]);
 } else {
-  $sql = "INSERT INTO users (	creatuser, email, name, password, contact) VALUES (NOW(), ?, ?, ?, ?);";
+  $sql = "INSERT INTO users (	creatuser, email,  password, name, contact) VALUES (NOW(), ?, ?, ?, ?);";
   $newuser["password"] = password_hash($newuser["password"], PASSWORD_DEFAULT);
 
 $stmt = db_get_prepare_stmt_version($con, $sql, $newuser);
